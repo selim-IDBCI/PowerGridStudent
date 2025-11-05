@@ -333,7 +333,7 @@ su - jenkins
 
 L'invite de commande devrait montrer un changement d'utilisateur.
 
-Vous devez maintenant créer des identifiants SSH à l'utilisateur `jenkins`, afin que celui-ci puisse s'identifier auprès de GitHub pour collecter les modifications apportées à notre dépôt de code. Générez une nouvelle paire de clés SSH pour l'utilisateur `jenkins` avec la commande suivante :
+Vous devez maintenant créer des identifiants SSH à l'utilisateur `jenkins`, afin que celui-ci puisse s'identifier auprès de GitHub pour collecter les modifications apportées à notre dépôt de code. Générez une nouvelle paire de clés SSH pour l'utilisateur `jenkins` avec la commande suivante (encore une fois, acceptez l'emplacement par défaut pour la clé en appuyant sur ENTRÉE) :
 
 ```bash
 ssh-keygen -t ed25519 -C "prenom.nom@etudiant.univ-rennes.fr"
