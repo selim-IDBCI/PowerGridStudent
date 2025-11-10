@@ -1,4 +1,3 @@
-
 import unittest
 import xmlrunner
 
@@ -9,15 +8,39 @@ class TestReseau(unittest.TestCase):
 
     def test_definition_entree(self):
         # TODO
-        self.fail()
+        r = Reseau()
+        r.ajouter_noeud(0, (0, 0))
+        r.definir_entree(0)
+        self.assertEqual(r.noeud_entree, 0)
+
+        r.definir_entree(1)  # noeud inexistant
+        self.assertEqual(r.noeud_entree, -1)
 
     def test_ajout_noeud(self):
         # TODO
-        self.fail()
+        r = Reseau()
+        r.ajouter_noeud(0, (0, 0))
+        r.ajouter_noeud(1, (1, 1))
+        self.assertIn(0, r.noeuds)
+        self.assertIn(1, r.noeuds)
+        self.assertEqual(r.noeuds[0], (0, 0))
+        self.assertEqual(r.noeuds[1], (1, 1))
 
     def test_ajout_arc(self):
         # TODO
-        self.fail()
+        r = Reseau()
+        r.ajouter_noeud(0, (0, 0))
+        r.ajouter_noeud(1, (1, 0))
+        r.ajouter_arc(0, 1)
+        self.assertIn((0, 1), r.arcs)
+
+        # vérifie que les arcs ne se dupliquent pas
+        r.ajouter_arc(1, 0)
+        self.assertEqual(len(r.arcs), 1)
+
+        # vérifie qu’un arc vers un noeud inexistant n’est pas ajouté
+        r.ajouter_arc(0, 2)
+        self.assertEqual(len(r.arcs), 1)
 
     def test_validation_correcte(self):
         r = Reseau()
@@ -108,4 +131,3 @@ class TestReseau(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main(testRunner=xmlrunner.XMLTestRunner(output="test-reports"))
-

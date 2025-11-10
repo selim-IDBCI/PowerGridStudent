@@ -1,4 +1,3 @@
-
 import unittest
 import xmlrunner
 
@@ -8,7 +7,21 @@ class TestTerrain(unittest.TestCase):
 
     def test_chargement(self):
         # TODO
-        self.fail()
+        t = Terrain()
+        # On crée un fichier temporaire de description de terrain
+        nom_fichier = "terrain_test.txt"
+        contenu = "E~~\nCCC\n"
+        with open(nom_fichier, "w") as f:
+            f.write(contenu)
+
+        # Chargement du fichier
+        t.charger(nom_fichier)
+
+        attendu = [
+            [Case.ENTREE, Case.VIDE, Case.VIDE],
+            [Case.CLIENT, Case.CLIENT, Case.CLIENT],
+        ]
+        self.assertEqual(t.cases, attendu)
 
     def test_accesseur(self):
         t = Terrain()
@@ -22,4 +35,3 @@ class TestTerrain(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main(testRunner=xmlrunner.XMLTestRunner(output="test-reports"))
-
