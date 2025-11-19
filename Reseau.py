@@ -34,18 +34,69 @@ class Reseau:
         self.strat = strat
 
     def valider_reseau(self) -> bool:
-        # TODO
-        return False
+        if not self.noeuds:
+            return False
+        if self.noeud_entree is None or self.noeud_entree not in self.noeuds:
+            return False
+        adj = self._adjacence()
+        if not adj:
+            return False
+        a_visiter = [self.noeud_entree]
+        visites = set()
+
+        while a_visiter:
+            n = a_visiter.pop()
+            if n in visites:
+                continue
+            visites.add(n)
+            a_visiter.extend(adj[n] - visites)
+        return len(visites) == len(self.noeuds)
+
+        
 
     def valider_distribution(self, t: Terrain) -> bool:
-        # TODO
-        return False
+       if not self.valider_reseau():
+            return False
+       adj = self._adjacence()
+       a_visiter = [self.noeud_entree]
+       atteignables = set()
+       while a_visiter:
+            n = a_visiter.pop()
+            if n in atteignables:
+                continue
+            atteignables.add(n)
+            a_visiter.extend(adj[n] - atteignables)
+       coord_to_nodes = {}
+       for ident, coord in self.noeuds.items():
+            coord_to_nodes.setdefault(coord, set()).add(ident)
+       for lig, ligne in enumerate(t.cases):
+            for col, case in enumerate(ligne):
+                if case is Case.CLIENT:
+                    coord = (lig, col)
+                    ids = coord_to_nodes.get(coord, set())
+                    if not ids or not (ids & atteignables):
+                        return False
+
+       return True
+
+
+
+        
 
     def configurer(self, t: Terrain):
         self.noeud_entree, self.noeuds, self.arcs  = self.strat.configurer(t)
 
     def afficher(self) -> None:
-        # TODO
+        print("Réseau électrique ")
+        print(f"Noeud d'entrée : {self.noeud_entree}")
+        print("Noeuds (id -> (ligne, colonne)) :")
+        for ident, coord in sorted(self.noeuds.items()):
+            print(f"  {ident} -> {coord}")
+
+        print("Arcs :")
+        for n1, n2 in self.arcs:
+            print(f"  {n1} <-> {n2}")
+    
         pass
 
     def afficher_avec_terrain(self, t: Terrain) -> None:
