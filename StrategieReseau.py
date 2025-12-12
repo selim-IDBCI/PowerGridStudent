@@ -8,6 +8,7 @@ class StrategieReseau:
 class StrategieReseauManuelle(StrategieReseau):
     def configurer(self, t: Terrain) -> tuple[int, dict[int, tuple[int, int]], list[tuple[int, int]]]:
         # TODO
+        print("hello")
         return -1, {}, []
 
 class StrategieReseauAuto(StrategieReseau):
