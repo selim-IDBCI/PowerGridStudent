@@ -1,11 +1,13 @@
-
 from enum import Enum
+from re import escape
+
 
 class Case(Enum):
     VIDE = 0
     OBSTACLE = 1
     CLIENT = 2
     ENTREE = 4
+
 
 class Terrain:
     def __init__(self):
@@ -61,17 +63,21 @@ class Terrain:
         return (-1, -1)
 
     def afficher(self):
-        for l in self.cases:
+        print(" ", end="")
+        for j in range(self.largeur):
+            print(f"{j:3}", end=" ")
+        print()
+        for i, l in enumerate(self.cases):
+            print(f"{i:2}", end=" ")
             for c in l:
                 if c == Case.OBSTACLE:
-                    print("X", end="")
+                    print("X", end=" ")
                 if c == Case.CLIENT:
-                    print("C", end="")
+                    print("C", end=" ")
                 if c == Case.VIDE:
-                    print("~", end="")
+                    print("~", end=" ")
                 if c == Case.ENTREE:
-                    print("E", end="")
+                    print("E", end=" ")
                 else:
-                    print(" ", end="")
+                    print(" ", end=" ")
             print()
-
